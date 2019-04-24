@@ -2,7 +2,7 @@ package org.iiitb.model;
 
 public class register {
 	private String date;
-	public String bf,dinner,lunch;
+	public String bf,dinner,lunch, rollNo;
 	public String getbf()
 	{
 		return bf;
@@ -34,5 +34,11 @@ public class register {
 	public void setDate(String date)
 	{
 		this.date = date;
+	}
+	public void setRollNum(String rollNo) {
+		this.rollNo = rollNo;
+	}
+	public String getRollNum(){
+		return rollNo;
 	}
 }
