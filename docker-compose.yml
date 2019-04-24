@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+   db:
+     image: projectmysql
+     volumes:
+       - /opt/data:/var/lib/mysql
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: admin
+       MYSQL_DATABASE: student_info
+       MYSQL_USER: root
+
+   webapi:
+     depends_on:
+       - db
+     image: project 
+     ports:
+       - "9000:8080"
+     restart: always

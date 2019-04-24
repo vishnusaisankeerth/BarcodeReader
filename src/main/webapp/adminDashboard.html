@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- <style type="text/css">
+.bottom-box {
+  background-color: red;
+  position: absolute;
+  left: 0;
+  bottom: 0; // this is the bottom end of the content, not the bottom end of the viewport
+  width: 200px;
+  height: 20px;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+}
+
+</style> -->
+<style>
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+.logo{
+  width: 52px;
+  float: left;
+}
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: right;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.container {
+  position: absolute;
+  top: 20%;
+  left: 40%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%) 
+  margin: 30px;
+  max-width: 400px;
+  padding: 30px;
+  background-color: white;
+}
+
+.container2 {
+  position: absolute;
+  width: 60%;
+  top: 50%;
+  left: 32%;
+  margin-right: -50%;
+  /*transform: translate(-50%, -50%) 
+  margin: 30px;*/
+  max-width: 700px;
+  /*padding: 30px;
+  background-color: white;*/
+}
+
+/* Full-width input fields */
+input[type=text]{
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+/* Set a style for the submit button */
+.btn {
+  background-color: #333;
+  color: white;
+  padding: 10px 12px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.btn:hover {
+	background-color: grey;
+  color: black;
+  opacity: 1;
+}
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+}
+
+body {font-family: Arial, Helvetica, sans-serif;}
+body{background-image: url("images/one.jpg");}
+</style>
+  <head>
+  
+    <title>DashBoard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="jquery-3.3.1/jquery.min.js"></script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+   
+  </head>
+
+  <body>
+    <br>
+    <div class="container"> 
+    <input class="btn" type="button" name="Show" value="Show" onclick="Submit()" />	
+    <!--input class="button" type="button" name="submit" value="submit" onclick="Submit()" /-->
+   </div>
+  
+    <div class="container2" id ="welcomeDiv" style="display:none;">
+      <div class="row">
+        <div class="col-sm-1"></div>
+          <!--div class="col-sm-10" style="border-style: solid;border-width: 10px;border-color:#ddd"-->
+            <!--div class="row" style="background-color:#eee ;height:70px"-->
+            </div>
+            <p style="color:red" id="decision"></p>
+          <div>
+          <ul class="list-group"><li class="list-group-item"><div class="row"><div><span class="col-sm-11"><div class=row><span class="col-sm-1" style="margin-left:20px"><table style=" border-collapse: separate; border-spacing: 4px;" ><tr ></tr></table></span><span class="col-sm-2" style="margin-left:20px"><p><b>Roll Number</b></b></p></span><span class="col-sm-2" style="margin-left:20px"><p><b>Date</b></b></p></span><span class="col-sm-2" style="margin-left:20px"><p><b>Breakfast</b></p></span><span class="col-sm-2" style="margin-left:20px"><p><b>Lunch</b></p></span></span><span class="col-sm-2" style="margin-right:20px"><p><b>Dinner</b></p></span></div></span></div></div></li>
+          <div>
+            <div id="cart"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-1"></div>
+      </div>
+    </div>
+<script>
+
+function Submit(){
+	document.getElementById('welcomeDiv').style.display = "block";
+	$.ajax({
+		type: "GET",
+		url: "webapi/myresource/dashboard",
+        
+        dataType:'JSON',
+        success: function(response){
+         console.log("response");
+         console.log(response);
+         //result.sort(comp);
+               result=response;
+              cart_product_list='<ul class="list-group">';
+               for(i in result){
+                 cart_list(i);/*function call*/
+               }
+               cart_product_list+='</ul>';
+               document.getElementById('cart').innerHTML=cart_product_list;
+  
+             }
+           });
+ };
+ function cart_list(x){
+ 	 cart_product_list+='<li class="list-group-item">';
+      cart_product_list+=
+    	  '<div class="row">'+
+        '<div>'+
+          '<span class="col-sm-11"><div class=row>'+
+              '<span class="col-sm-1" style="margin-left:20px">'+'</span>'+
+              '<span class="col-sm-2" style="margin-left:20px"><p>'+result[x].rollNum+'</p></span>'+
+              '<span class="col-sm-2" style="margin-left:20px"><p>'+result[x].date+'</p></span>'+
+              '<span class="col-sm-2" style="margin-left:60px"><p>'+result[x].bf+'</p></span>'+
+              '<span class="col-sm-2" style="margin-left:20px"><p>'+result[x].lunch+'</p></span>'+
+			  '</span>'+'<span class="col-sm-2"><p>'+result[x].dinner+'</p></span>'+
+												'</div>'+
+          '</span>'+
+       '</div>'+
+     '</div>'+
+  '</li>'
+ };
+</script> 
+  </body>
+</html>
+

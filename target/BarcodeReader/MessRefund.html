@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" > </script>
+<meta charset="UTF-8">
+<title>Mess Office</title>
+
+<link rel="stylesheet" href="assets/css/style-login.css">
+</head> 
+<body>
+  <div class="sign">
+  
+
+    <label style="padding-right:20px"for="rollNumber"><b>Roll Number: </b></label>
+    <input type="text" placeholder="Enter Roll Number" name="rollNumber" id="rollNumber" required>
+	
+    <input class="button" type="button" name="submit" value="submit" onclick="Submit()" />
+  </div>
+  <div class= "row" id ="welcomeDiv" style="display:none;">
+  		
+  			<div class= "column">
+  			<div class="card">
+  			<div>Roll Number: <span style="padding-left:10px" id="rollNum"></span></div>
+  			<div style="padding-top:15px">Name : <span style="padding-left:10px" id="studentName" ></span></div>
+  			<div style="padding-top:15px">Refund: <span style="padding-left:10px" id="refund"></span></div>
+  			</div>
+  			</div>
+  
+  </div>
+  
+  
+
+<!--            jQuery part              --> 
+
+<script type = "text/javascript">
+function Submit(){
+	document.getElementById('welcomeDiv').style.display = "block";
+
+    var login_details = {
+    		
+    	roll_no : $("#rollNumber").val(),
+    		
+    };
+	
+	$.ajax({
+        url: "http://localhost:9000/BarcodeReader/webapi/myresource/refundInfo",
+        data: JSON.stringify(login_details),
+        type: "POST",
+        
+        success: function(data) {
+        	
+				if(data.result =="success"){
+					/* var mealType;
+					var cTime = data.cTime.split(" "); */
+					
+					document.getElementById("rollNum").innerHTML = data.student_id;
+					document.getElementById("studentName").innerHTML = data.name;
+					document.getElementById("refund").innerHTML = data.refund;
+					//alert("valid Roll Number");
+				   }
+				else	{
+					alert("Invalid Roll Number");
+				}
+			},
+
+    	});
+	}
+</script> 
+</body>
+</html>

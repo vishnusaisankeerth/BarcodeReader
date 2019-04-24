@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Menu</title>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="jquery-3.3.1/jquery.min.js"></script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container" >
+      <div class="row">
+        <div class="col-sm-1"></div>
+          <div class="col-sm-10" style="border-style: solid;border-width: 10px;border-color:#ddd">
+            <div class="row" style="background-color:#eee ;height:70px">
+            </div>
+            <p style="color:red" id="decision"></p>
+          <div>
+          <ul class="list-group"><li class="list-group-item"><div class="row"><div><span class="col-sm-11"><div class=row><span class="col-sm-1" style="margin-left:20px"><table style=" border-collapse: separate; border-spacing: 4px;" ><tr ></tr></table></span><span class="col-sm-2" style="margin-left:50px"><p><b>Breakfast</b></p></span><span class="col-sm-2" style="margin-left:50px"><p><b>Lunch</b></p></span></span><span class="col-sm-2"><p><b>Dinner</b></p></span><span class="col-sm-2"><p><b>Semester Charges</b></p></span></div></span></div></div></li>
+          <div>
+            <div id="cart"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-1"></div>
+      </div>
+     <div class ="row">
+      <input class="button" type="button" name="change" value="change" onclick="show()" />
+     </div>
+     <div class="container" id ="welcomeDiv" style="display:none;">
+     	<div style="padding-top:150px;">
+     	<input type="number" placeholder="Enter Breakfast Charges" name="bfcharge" id="bfcharge" required>
+     	</div>
+     	<div style="padding-top:20px;">
+     	<input type="number" placeholder="Enter Lunch Charges" name="lunchcharge" id="lunchcharge" required>
+     	</div>
+     	<div style="padding-top:20px;"'>
+     	<input type="number" placeholder="Enter Dinner Charges" name="dinnerharge" id="dinnercharge" required>
+     	</div>
+     	<div style="padding-top:20px;">
+     	<input type="number" placeholder="Enter Semester Charges" name="semcharge" id="semcharge" required>
+     	</div>
+     	<input class=button" type="button" name="update" value="update" onclick ="Update()" />
+     </div> 
+ <script type = "text/javascript">
+ window.onload =function load_value()
+ {
+		$.ajax({
+			type: "GET",
+			url: "webapi/myresource/charges",
+	        
+	        dataType:'JSON',
+	        success: function(response){
+	         console.log("response");
+	         console.log(response);
+	         
+	               result=response;
+	              cart_product_list='<ul class="list-group">';
+	              cart_product_list+='<li class="list-group-item">';
+	              cart_product_list+=
+	            	  '<div class="row">'+
+	                '<div>'+
+	                  '<span class="col-sm-11"><div class=row>'+
+	                      '<span class="col-sm-1" style="margin-left:20px">'+
+	                      '</span>'+
+	                      '<span class="col-sm-2" style="margin-left:50px"><p>'+result.bf+'</p></span>'+
+	                      '<span class="col-sm-2" style="margin-left:50px"><p>'+result.lunch+'</p></span>'+
+	                      '<span class="col-sm-2" style="margin-left:50px"><p>'+result.dinner+'</p></span>'+
+	        												'</span>'+
+	        				'<span class="col-sm-2"><p>'+result.sem+'</p></span>'+
+	        												'</div>'+
+	                  '</span>'+
+	               '</div>'+
+	             '</div>'+
+	          '</li>'
+	               cart_product_list+='</ul>';
+	               document.getElementById('cart').innerHTML=cart_product_list;
+	  
+	             }
+	           });
+ };
+ function show()
+ {
+	 document.getElementById('welcomeDiv').style.display = "block";	 
+ };
+ function Update(){
+	// console.log("Hi")
+	 var json = {
+			 bfcharge : $("#bfcharge").val(),
+			 lcharge : $("#lunchcharge").val(),
+			 dcharge : $("#dinnercharge").val(),
+			 semcharge : $("#semcharge").val(),
+	 };
+	
+	 $.ajax({
+	 url: "webapi/myresource/updatecharges",
+	 data: JSON.stringify(json),
+	 type: "POST",
+     
+     success: function(data) {
+     		if(data.Response ="Success")
+     		{
+     			alert("Values are changed");
+     			location.reload();
+     			document.getElementById('welcomeDiv').style.display = "none";	
+     		}
+     		else{
+     			alert("Invalid");
+     		}
+     		
+     }
+	 
+	 });
+ }
+
+ </script>    
+</body>
+</html>
