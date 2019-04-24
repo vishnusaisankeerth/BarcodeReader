@@ -40,7 +40,7 @@ public class DatabaseConnection {
 		String url = "jdbc:mysql://db:3306/student_info?verifyServerCertificate=false&useSSL=true";
 		System.out.println(url);
 		String user = "root";
-		String password = "sonyhp2016";
+		String password = "admin";
 		connection = null;
 
 		try {
@@ -110,7 +110,62 @@ public class DatabaseConnection {
 		System.out.println(list);
 		return list;
 	}
-	
+	public register get_student_date_status(String rollnumber,String currDate) {
+		java.sql.PreparedStatement preparedStatement = null;		
+		register register_object = new register();
+
+		try {
+			query = "select student_id, SUM(breakfast) as bf,SUM(lunch) as lunch,SUM(dinner) as dinner,currDate from messRegister where student_id=? and currDate=?;";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, rollnumber);
+			preparedStatement.setString(2, currDate);
+			ResultSet rs = preparedStatement.executeQuery();
+//			for(int i=0;i<5;i++) {
+			if(rs.next()) {
+					String bf="",lunch="",dinner="";
+					if(rs.getInt("bf") == 1)
+					{	
+						bf="Yes"; 
+					}
+					else if(rs.getInt("bf") == 0)
+					{
+						bf="No";
+					}
+					if(rs.getInt("lunch") == 1)
+					{	
+						lunch="Yes"; 
+					}
+					else if(rs.getInt("lunch") == 0)
+					{
+						lunch="No";
+					}
+					if(rs.getInt("dinner") == 1)
+					{	
+						dinner="Yes"; 
+					}
+					else if(rs.getInt("dinner") == 0)
+					{
+						dinner="No";
+					}
+					String date = rs.getString("currDate");
+					String[] x = date.split("-");
+					String yyyy = x[0];
+					String mm = x[1];
+					String dd = x[2];
+					date = dd + "-" +mm+"-"+yyyy;
+					register_object.setbf(bf);
+					register_object.setlunch(lunch);
+					register_object.setdinner(dinner);
+					register_object.setDate(date);
+					register_object.setRollNum(rs.getString("student_id"));
+			}
+
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return register_object;
+	}
 	public ArrayList<register> get_Top5_Items(String rollnumber) {
 		ArrayList<register> list = new ArrayList<register>();
 		java.sql.PreparedStatement preparedStatement = null;		
