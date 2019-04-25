@@ -57,12 +57,13 @@ pipeline {
 	        	withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) 
 	        	{
 				
-	        		sh 'docker push vishnusaisankeerth/br:apiimg'
-	        		sh 'docker push vishnusaisankeerth/br:sqlimg'
-				sh 'docker stop brsql_container'
+	        		sh 'docker stop brsql_container'
 				sh 'docker rm brsql_container'
 				sh 'docker stop brproject_container'
 				sh 'docker rm brproject_container'
+				sh 'docker push vishnusaisankeerth/br:apiimg'
+	        		sh 'docker push vishnusaisankeerth/br:sqlimg'
+				
 	      		}
 		    }
 		}
