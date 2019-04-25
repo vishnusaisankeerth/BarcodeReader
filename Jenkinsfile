@@ -4,10 +4,18 @@ pipeline {
 		stage('Build') {
 			steps {
 				sh 'mvn package -DskipTests'
-				sh 'docker build -t project .'
-				sh 'docker build -t projectmysql -f mysql.Dockerfile .'			
+						
 			}		
 		}
+		stage('BUILD - Docker Images') 
+		{
+			steps 
+			{
+				sh 'docker build -t vishnusaisankeerth/br:apiimg .'
+				sh 'docker build -t vishnusaisankeerth/br:sqlimg -f mysql.Dockerfile .'	
+			}
+		} 
+
 		
 		stage('TEST')
 		{
@@ -42,7 +50,17 @@ pipeline {
 			}
 		}
 
-	
+		stage('PUBLISH to DockerHub') 
+		{
+		    steps 
+		    {
+	        	withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) 
+	        	{
+	        		sh 'docker push vishnusaisankeerth/br:apiimg'
+	        		sh 'docker push vishnusaisankeerth/br:sqlimg'
+	      		}
+			}
+		}
 	}
 	
 }
