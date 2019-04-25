@@ -6,6 +6,8 @@ services:
      container_name: sql_container
      volumes:
        - /opt/data:/var/lib/mysql
+       - /etc/timezone:/etc/timezone:ro
+       - /etc/localtime:/etc/localtime:ro
      restart: always
      environment:
        MYSQL_ROOT_PASSWORD: admin
@@ -17,6 +19,9 @@ services:
        - db
      image: project 
      container_name: project_container
+     volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
      hostname: project_api
      ports:
        - "9000:8080"

@@ -273,11 +273,12 @@ public class DatabaseConnection {
 			preparedStatement.setString(1, rollnumber);
 		
 			resultSet = preparedStatement.executeQuery();  
-			System.out.println("Database CConnection");
+			System.out.println("Database CConnection"+rollnumber);
+			
 			if(resultSet.next()){
 				addUser(resultSet.getString("studentId"), resultSet.getString("studentName"));
 				int fTime = getTime();
-				
+				System.out.println(fTime);
 				String mealType = getMeal(fTime);
 				
 				user.put("name", resultSet.getString("studentName"));
@@ -413,10 +414,10 @@ public class DatabaseConnection {
 	
 	public String getMeal(int fTime) {
 		String meal = "";
-		if(fTime >= 0 && fTime <= 1130) {
+		if(fTime >= 700 && fTime <= 930) {
 			meal = "breakfast";
 		}
-		else if(fTime >= 1230 && fTime <= 1850) {
+		else if(fTime >= 1300 && fTime <= 1850) {
 			meal = "lunch";
 		}
 		else if(fTime >= 1800 && fTime <= 2359) {
@@ -488,7 +489,7 @@ public class DatabaseConnection {
 		int bFast=0, lunch=0, dinner=0;
 		//Getting current time to decide what meal the student is having 
 		int fTime = getTime();
-		
+		System.out.println("hello container"+fTime+getDate());
 		String meal = getMeal(fTime);
 		System.out.println(rollnum+name);
 		if(meal == "breakfast") {

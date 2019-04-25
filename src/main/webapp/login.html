@@ -50,7 +50,7 @@ function Submit(){
     	roll_no : $("#rollNumber").val(),
     		
     };
-	
+	console.log(JSON.stringify(login_details));
 	$.ajax({
         url: "webapi/myresource/userInfo",
         data: JSON.stringify(login_details),
