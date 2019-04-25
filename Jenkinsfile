@@ -19,13 +19,24 @@ pipeline {
 					{	
 						script 
 						{
-                                                        sh 'docker-compose up -d'
-							sh 'sleep 60'
-							sh 'docker exec project_container mvn -f /usr/app test'
+                                                      try
+							{
+							    sh 'docker-compose up -d'
+							    sh 'sleep 60'
+							    sh 'docker exec project_container mvn -f /usr/app test'
+							    currentBuild.result = 'SUCCESS'
+							    sh 'docker-compose stop'
+							}
+							catch(Exception ex) 
+							{
+								currentBuild.result = 'ABORTED'
+								sh 'docker-compose stop'
+								error('Test Cases Failed')
+
+							}
 							
 						}
 
-						
 					}
 				}
 			}
