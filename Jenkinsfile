@@ -31,7 +31,7 @@ pipeline {
 							{
 							    sh 'docker-compose up -d'
 							    sh 'sleep 60'
-							    sh 'docker exec project_container mvn -f /usr/app test'
+							    sh 'docker exec brproject_container mvn -f /usr/app test'
 							    currentBuild.result = 'SUCCESS'
 							    sh 'docker-compose stop'
 							}
