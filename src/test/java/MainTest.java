@@ -10,9 +10,9 @@ public class MainTest {
 	public void TestBreakFast() {
 		register dummy_register = new register();
 		register original = new register();
-		dummy_register.setbf("No");
+		dummy_register.setbf("Yes");
 		dummy_register.setlunch("Yes");
-		dummy_register.setdinner("No");
+		dummy_register.setdinner("Yes");
 		dummy_register.setRollNum("IMT2015510");
 		dummy_register.setDate("24-04-2019");
 				
@@ -25,9 +25,9 @@ public class MainTest {
 	public void TestLunch() {
 		register dummy_register = new register();
 		register original = new register();
-		dummy_register.setbf("No");
+		dummy_register.setbf("Yes");
 		dummy_register.setlunch("Yes");
-		dummy_register.setdinner("No");
+		dummy_register.setdinner("Yes");
 		dummy_register.setRollNum("IMT2015510");
 		dummy_register.setDate("24-04-2019");
 				
