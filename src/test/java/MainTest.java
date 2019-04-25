@@ -12,12 +12,12 @@ public class MainTest {
 		register original = new register();
 		dummy_register.setbf("No");
 		dummy_register.setlunch("Yes");
-		dummy_register.setdinner("Yes");
+		dummy_register.setdinner("No");
 		dummy_register.setRollNum("IMT2015510");
-		dummy_register.setDate("23-04-2019");
+		dummy_register.setDate("24-04-2019");
 				
 		DatabaseConnection dc = new DatabaseConnection();
-		original = dc.get_student_date_status("IMT2015510","2019-04-23");
+		original = dc.get_student_date_status("IMT2015510","2019-04-24");
 		System.out.println(dummy_register.getbf());
 		assertEquals(dummy_register.getbf(),original.getbf());
 	}
@@ -27,14 +27,14 @@ public class MainTest {
 		register original = new register();
 		dummy_register.setbf("No");
 		dummy_register.setlunch("Yes");
-		dummy_register.setdinner("Yes");
+		dummy_register.setdinner("No");
 		dummy_register.setRollNum("IMT2015510");
-		dummy_register.setDate("23-04-2019");
+		dummy_register.setDate("24-04-2019");
 				
 		DatabaseConnection dc = new DatabaseConnection();
-		original = dc.get_student_date_status("IMT2015510","2019-04-23");
+		original = dc.get_student_date_status("IMT2015510","2019-04-24");
 		System.out.println(dummy_register.getbf());
-		assertEquals(dummy_register.getlunch(),original.getdinner());
+		assertEquals(dummy_register.getlunch(),original.getlunch());
 	}
 
 }

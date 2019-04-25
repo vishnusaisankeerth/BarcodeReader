@@ -17,7 +17,7 @@ pipeline {
 				{
 					steps 
 					{
-						sh 'docker-compose up'
+						sh 'docker-compose up -d'
 					}
 				}		
 
@@ -28,20 +28,7 @@ pipeline {
 						script 
 						{
 							sh 'sleep 60'
-						
-							try 
-							{
-								sh 'mvn test'
-								currentBuild.result = 'SUCCESS'
-								sh 'docker-compose stop'
-							}
-							catch(Exception ex) 
-							{
-								currentBuild.result = 'ABORTED'
-								sh 'docker-compose stop'
-								error('Test Cases Failed')
-
-							}
+							sh 'mvn test'
 						}
 
 						
