@@ -13,20 +13,13 @@ pipeline {
 		{
 			parallel
 			{
-				stage('TEST - Setting up Test') 
-				{
-					steps 
-					{
-						sh 'docker-compose up'
-					}
-				}		
-
 				stage("TEST - Running Test") 
 				{
 					steps 
 					{	
 						script 
 						{
+                                                        sh 'docker-compose up -d'
 							sh 'sleep 60'
 							sh 'mvn test'
 							
