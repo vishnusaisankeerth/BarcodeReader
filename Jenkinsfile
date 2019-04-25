@@ -62,5 +62,20 @@ pipeline {
 			}
 		}
 	}
+	post
+	{
+		always
+		{
+			sh 'echo "Pipeline Finished"'
+		}
+		success
+		{
+			sh 'curl --location --request POST "http://localhost:4440/api/21/job/80d86921-78ce-4e14-b6d1-76c3f1f106a8/run" \
+ 			--header "Accept: application/json" \
+ 			--header "X-Rundeck-Auth-Token: aFbPNoYDgrq7uIu0YB6A7C1buiUdZ9jh" \
+ 			--header "Content-Type: application/json" \
+ 			--data ""'
+		}
+  	}
 	
 }

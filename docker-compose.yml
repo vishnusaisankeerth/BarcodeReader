@@ -3,7 +3,7 @@ version: '3.3'
 services:
    db:
      image: vishnusaisankeerth/br:sqlimg
-     container_name: sql_container
+     container_name: brsql_container
      volumes:
        - /opt/data:/var/lib/mysql
        - /etc/timezone:/etc/timezone:ro
@@ -18,7 +18,7 @@ services:
      depends_on:
        - db
      image: vishnusaisankeerth/br:apiimg
-     container_name: project_container
+     container_name: brproject_container
      volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
