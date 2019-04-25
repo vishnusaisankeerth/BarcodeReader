@@ -3,6 +3,7 @@ version: '3.3'
 services:
    db:
      image: projectmysql
+     container_name: sql_container
      volumes:
        - /opt/data:/var/lib/mysql
      restart: always
@@ -15,6 +16,8 @@ services:
      depends_on:
        - db
      image: project 
+     container_name: project_container
+     hostname: project_api
      ports:
        - "9000:8080"
      restart: always

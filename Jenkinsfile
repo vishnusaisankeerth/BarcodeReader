@@ -21,7 +21,7 @@ pipeline {
 						{
                                                         sh 'docker-compose up -d'
 							sh 'sleep 60'
-							sh 'mvn test'
+							sh 'docker exec project_container mvn -f /usr/app test'
 							
 						}
 
