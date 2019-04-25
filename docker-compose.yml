@@ -3,6 +3,7 @@ version: '3.3'
 services:
    db:
      image: vishnusaisankeerth/br:sqlimg
+     container_name: brsql_container
      volumes:
        - /opt/data:/var/lib/mysql
        - /etc/timezone:/etc/timezone:ro
