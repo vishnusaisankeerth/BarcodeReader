@@ -49,5 +49,6 @@ Insert into studentDetails(studentId, studentName, email) VALUES
 ('IMT2015023', 'Vas', 'V.C@iiitb.org'),
 ('IMT2015047', 'Ritvik', 'V.R@iiitb.org');
 
+Insert into messRegister(student_id,name,currDate,currTime,breakfast,lunch,dinner) values ('IMT2015510','Sankeerth','2019-04-24',CURTIME(),1,1,1);
 Insert into messCharges(breakfastcharge,lunchcharge,dinnercharge,semestercharge) VALUES 
 (40,70,70,33000);
