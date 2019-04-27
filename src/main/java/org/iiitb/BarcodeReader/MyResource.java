@@ -44,8 +44,12 @@ public class MyResource {
       
     	JSONObject data = new JSONObject(request);
     	String roll_no = data.getString("roll_no");
+    	String fTime = data.getString("fTime");
+    	String date = data.getString("date");
     	
     	DatabaseConnection dc = new DatabaseConnection();
+    	dc.setDate(date);
+    	dc.setfTime(fTime);
     	return dc.userDetails(roll_no);
     }
 	

@@ -18,13 +18,39 @@ import org.json.JSONObject;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Date;
+import org.apache.commons.net.ntp.NTPUDPClient; 
+import org.apache.commons.net.ntp.TimeInfo;
+import org.apache.commons.net.ntp.TimeStamp;
+
+
+
 public class DatabaseConnection {
 	Statement statement;
 	ResultSet resultSet;
 	ResultSet resultSet1;
 	Connection connection = null;
 	String query = null;
-
+	int fTime;
+	String currDate;
+	
+	public void setfTime(String time)
+	{
+		this.fTime = Integer.parseInt(time);
+	}
+	public int getTime() {
+		return fTime;
+	}
+	public void setDate(String date) {
+		this.currDate = date;
+	}
+	public String getDate() {
+		return currDate;
+	}
+	
 	// Constructor for opening the Database Connection
 
 	public DatabaseConnection() {
@@ -234,8 +260,6 @@ public class DatabaseConnection {
 
 		java.sql.PreparedStatement preparedStatement = null;
 		JSONObject user = new JSONObject();
-		String grade="";
-		
 		try {
 			query = "select studentName,studentId from studentDetails where studentId=?";
 			preparedStatement = connection.prepareStatement(query);
@@ -265,8 +289,6 @@ public class DatabaseConnection {
 
 		java.sql.PreparedStatement preparedStatement = null;
 		JSONObject user = new JSONObject();
-		String grade="";
-		
 		try {
 			query = "select studentName,studentId from studentDetails where studentId=?";
 			preparedStatement = connection.prepareStatement(query);
@@ -389,35 +411,14 @@ public class DatabaseConnection {
 		return json.toString();
 		
 	}
-	public int getTime() {
-		Calendar cal = Calendar.getInstance();
-		Date date = cal.getTime();
-		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-		String currTime = dateFormat.format(date);
-		//System.out.println(currTime);
-		String[] splitTime = currTime.split(":");
-		String ctime = splitTime[0]+splitTime[1];
-		int fTime = Integer.parseInt(ctime);
-		
-		return fTime;
-	}
 	
-	public String getDate() {
-		Calendar cal = Calendar.getInstance();
-		Date date = cal.getTime();
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String currDate = dateFormat.format(date);
-		//System.out.println(currDate);
-		
-		return currDate;
-	}
 	
 	public String getMeal(int fTime) {
 		String meal = "";
-		if(fTime >= 700 && fTime <= 930) {
+		if(fTime >= 700 && fTime <= 1130) {
 			meal = "breakfast";
 		}
-		else if(fTime >= 1300 && fTime <= 1850) {
+		else if(fTime >= 1230 && fTime <= 1850) {
 			meal = "lunch";
 		}
 		else if(fTime >= 1800 && fTime <= 2359) {
@@ -486,6 +487,14 @@ public class DatabaseConnection {
 	}
 	
 	public void addUser(String rollnum, String name) throws JSONException{
+		System.out.println("this is harsha");
+//		try {
+//			getTime2();
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+		
 		int bFast=0, lunch=0, dinner=0;
 		//Getting current time to decide what meal the student is having 
 		int fTime = getTime();

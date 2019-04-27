@@ -45,9 +45,21 @@ body{background-image: url("images/one.jpg");}
 <script type = "text/javascript">
 function Submit(){
 	document.getElementById('welcomeDiv').style.display = "block";
-    var login_details = {	
+	var today = new Date();
+	var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+	if(today.getMinutes() < 10)
+	{
+				var time = today.getHours() +''+'0'+ today.getMinutes();
+	}
+	else
+	{
+		var time = today.getHours() +''+ today.getMinutes();
+	}
+	var login_details = {	
     	
     	roll_no : $("#rollNumber").val(),
+    	fTime:time,
+    	date:date,
     		
     };
 	console.log(JSON.stringify(login_details));
