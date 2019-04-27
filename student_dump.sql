@@ -2,7 +2,7 @@ SET NAMES utf8;
 
 CREATE DATABASE IF NOT EXISTS student_info;
 GRANT ALL PRIVILEGES on student_info.*
-TO 'root'@'%' IDENTIFIED BY 'admin'
+TO 'root'@'%' IDENTIFIED BY '5555'
 WITH GRANT OPTION;
 
 DROP TABLE IF EXISTS `studentDetails`;
