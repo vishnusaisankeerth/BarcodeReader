@@ -66,7 +66,7 @@ public class DatabaseConnection {
 		String url = "jdbc:mysql://db:3306/student_info?verifyServerCertificate=false&useSSL=true";
 		System.out.println(url);
 		String user = "root";
-		String password = "5555";
+		String password = "admin";
 		connection = null;
 
 		try {
