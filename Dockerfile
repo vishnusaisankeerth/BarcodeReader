@@ -9,7 +9,5 @@ RUN mkdir -p /usr/app
 
 COPY . /usr/app
 
-RUN mvn dependency:resolve -f /usr/app/pom.xml
-
 
 
