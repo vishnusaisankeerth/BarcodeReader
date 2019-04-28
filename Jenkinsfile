@@ -54,7 +54,7 @@ pipeline {
 		{
 		    steps 
 		    {
-	        	withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) 
+	        	withDockerRegistry([ credentialsId: "dockerhub-vss", url: "" ]) 
 	        	{
 				
 	        		sh 'docker stop brsql_container'
