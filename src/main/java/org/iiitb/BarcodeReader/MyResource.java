@@ -44,7 +44,7 @@ public class MyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String userInfo(String request) throws Exception{
 		System.out.println("Hello");
-		//logs l = new logs();
+		logs l = new logs();
 		Logger logger = l.getlogger();
     	JSONObject data = new JSONObject(request);
     	String roll_no = data.getString("roll_no");
@@ -55,7 +55,7 @@ public class MyResource {
     	dc.setDate(date);
     	dc.setfTime(fTime);
     	
-    	//logs.logger.info("Successfully added student info " + date);
+    	logs.logger.info("Successfully added student info " + date);
     	
     	return dc.userDetails(roll_no);
     }
