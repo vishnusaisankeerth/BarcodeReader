@@ -32,7 +32,7 @@ public class logs {
 	
 	
 	public static Logger getlogger() throws IOException  {
-		RollingFileAppender appender =   new RollingFileAppender(new PatternLayout("%d{dd/MMM/YYYY:HH:mm:ss }  %m%n"), "/tmp/logs.out", true);
+		RollingFileAppender appender =   new RollingFileAppender(new PatternLayout("%d{dd/MMM/YYYY:HH:mm:ss }  %m%n"), "/tmp/", true);
 	
 
 		appender.setMaxBackupIndex(5);
