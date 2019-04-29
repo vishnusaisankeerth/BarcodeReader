@@ -12,7 +12,7 @@ services:
        MYSQL_DATABASE: student_info
        MYSQL_USER: root
      ports:
-        - "3306:3306"
+        - "3310:3306"
 
    webapi:
      depends_on:
