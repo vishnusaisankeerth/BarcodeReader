@@ -22,9 +22,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
-import org.apache.commons.net.ntp.NTPUDPClient; 
-import org.apache.commons.net.ntp.TimeInfo;
-import org.apache.commons.net.ntp.TimeStamp;
 
 
 
@@ -63,10 +60,10 @@ public class DatabaseConnection {
 			System.out.println("Driver Not Found: " + e);
 		}
 
-		String url = "jdbc:mysql://db:3306/student_info?verifyServerCertificate=false&useSSL=true";
+		String url = "jdbc:mysql://localhost:3306/student_info?verifyServerCertificate=false&useSSL=true";
 		System.out.println(url);
 		String user = "root";
-		String password = "admin";
+		String password = "raman2412";
 		connection = null;
 
 		try {

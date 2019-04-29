@@ -20,7 +20,9 @@ import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.iiitb.BarcodeReader.DatabaseConnection;
 
+import org.apache.log4j.*;
 import org.iiitb.model.register;
+import org.iiitb.logs.logs;
 import org.json.JSONArray;
 import org.json.JSONObject;
 /**
@@ -41,7 +43,9 @@ public class MyResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public String userInfo(String request) throws Exception{
-      
+		System.out.println("Hello");
+		logs l = new logs();
+		Logger logger = l.getlogger();
     	JSONObject data = new JSONObject(request);
     	String roll_no = data.getString("roll_no");
     	String fTime = data.getString("fTime");
@@ -50,6 +54,9 @@ public class MyResource {
     	DatabaseConnection dc = new DatabaseConnection();
     	dc.setDate(date);
     	dc.setfTime(fTime);
+    	
+    	logs.logger.info("Successfully added student info " + date);
+    	
     	return dc.userDetails(roll_no);
     }
 	
