@@ -22,6 +22,6 @@ services:
      hostname: project_api
      ports:
        - "9000:8080"
-     volumes:
-       - ./docker-elk/logs/logs.out:/tmp/logs.out
+      volumes:
+	- ./docker-elk/logs/logs.out:/tmp/logs.out
      restart: always
