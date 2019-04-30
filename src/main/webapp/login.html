@@ -62,14 +62,14 @@ function Submit(){
     	date:date,
     		
     };
-	console.log(JSON.stringify(login_details));
+	//console.log(JSON.stringify(login_details));
 	$.ajax({
         url: "webapi/myresource/userInfo",
         data: JSON.stringify(login_details),
         type: "POST",
         
         success: function(data) {
-        	
+        		console.log(data);
 				if(data.result =="success"){
 					/* var mealType;
 					var cTime = data.cTime.split(" "); */
@@ -78,7 +78,14 @@ function Submit(){
 					document.getElementById("meal").innerHTML = data.mealType;
 					//alert("valid Roll Number");
 				   }
-				else	{
+				else if(data.result=="fail")
+				{
+					alert("Sorry!! User already took meal");
+					location.reload();
+				}
+				
+				else	
+				{
 					alert("Invalid Roll Number");
 				}
 			},

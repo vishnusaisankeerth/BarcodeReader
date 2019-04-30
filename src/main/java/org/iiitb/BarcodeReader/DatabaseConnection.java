@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+import org.iiitb.logs.logs;
 import org.iiitb.model.register;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -282,7 +284,7 @@ public class DatabaseConnection {
 		return user;
 
 	}
-	public String userDetails(String rollnumber) throws JSONException {
+	public String userDetails(String rollnumber) throws JSONException, IOException {
 
 		java.sql.PreparedStatement preparedStatement = null;
 		JSONObject user = new JSONObject();
@@ -295,18 +297,22 @@ public class DatabaseConnection {
 			System.out.println("Database CConnection"+rollnumber);
 			
 			if(resultSet.next()){
-				addUser(resultSet.getString("studentId"), resultSet.getString("studentName"));
 				int fTime = getTime();
 				System.out.println(fTime);
 				String mealType = getMeal(fTime);
-				
-				user.put("name", resultSet.getString("studentName"));
-				user.put("student_id", resultSet.getString("studentId"));
-				user.put("mealType", mealType);
-				user.put("result", "success");
+				if(!checkDupMeal(rollnumber)) {
+					addUser(resultSet.getString("studentId"), resultSet.getString("studentName"));
+					user.put("name", resultSet.getString("studentName"));
+					user.put("student_id", resultSet.getString("studentId"));
+					user.put("mealType", mealType);
+					user.put("result", "success");
+				}
+				else {
+					user.put("result", "fail");
+				}
 			}
 			else {
-				user.put("result", "fail");
+				user.put("result", "failure");
 			}
 
 		} catch (SQLException e) {
@@ -412,7 +418,7 @@ public class DatabaseConnection {
 	
 	public String getMeal(int fTime) {
 		String meal = "";
-		if(fTime >= 700 && fTime <= 1130) {
+		if(fTime >= 2 && fTime <= 500) {
 			meal = "breakfast";
 		}
 		else if(fTime >= 1230 && fTime <= 1850) {
@@ -483,7 +489,7 @@ public class DatabaseConnection {
 		return checkDup;
 	}
 	
-	public void addUser(String rollnum, String name) throws JSONException{
+	public void addUser(String rollnum, String name) throws JSONException, IOException{
 		System.out.println("this is harsha");
 //		try {
 //			getTime2();
@@ -493,6 +499,7 @@ public class DatabaseConnection {
 //		}
 		
 		int bFast=0, lunch=0, dinner=0;
+		String date = getDate();
 		//Getting current time to decide what meal the student is having 
 		int fTime = getTime();
 		System.out.println("hello container"+fTime+getDate());
@@ -515,6 +522,10 @@ public class DatabaseConnection {
 				stmt = connection.createStatement();
 				String sql = "INSERT INTO messRegister(student_id,name,currDate,currTime,breakfast,lunch,dinner) " + "VALUES ('"+rollnum+"','"+name+"',CURDATE(),CURTIME(),'"+bFast+"','"+lunch+"','"+dinner+"')";
 				stmt.executeUpdate(sql);
+				 logs l = new logs();
+	             Logger logger = l.getlogger();
+	             logs.logger.info("Successfully added student info " +date+" "+ meal);
+	             logs.removeDuplicates();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
