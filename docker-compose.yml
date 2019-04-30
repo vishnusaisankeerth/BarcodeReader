@@ -24,6 +24,7 @@ services:
        - "9000:8080"
      restart: always
      volumes:
+       - ./myelk/logs/output.out:/tmp/output.out
        - ./myelk/logs/input.out:/tmp/input.out
        
     

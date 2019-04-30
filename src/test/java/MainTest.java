@@ -36,5 +36,4 @@ public class MainTest {
 		System.out.println(dummy_register.getbf());
 		assertEquals(dummy_register.getlunch(),original.getlunch());
 	}
-
 }

@@ -56,7 +56,7 @@ public class MyResource {
          dc.setDate(date);
          dc.setfTime(fTime);
          logs.logger.info("Successfully added student info " + date);
-         //logs.removeDuplicates();
+         logs.removeDuplicates();
          
          return dc.userDetails(roll_no);
     }
