@@ -25,5 +25,5 @@ services:
      restart: always
      volumes:
        - ./myelk/logs/input.out:/tmp/input.out
-       - ./myelk/logs/output.out:/tmp/output.out
+       
     
