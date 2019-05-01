@@ -418,7 +418,7 @@ public class DatabaseConnection {
 	
 	public String getMeal(int fTime) {
 		String meal = "";
-		if(fTime >= 2 && fTime <= 500) {
+		if(fTime >= 700 && fTime <= 1150) {
 			meal = "breakfast";
 		}
 		else if(fTime >= 1230 && fTime <= 1850) {
