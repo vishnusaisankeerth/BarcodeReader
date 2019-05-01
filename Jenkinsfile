@@ -19,10 +19,7 @@ pipeline {
 		
 		stage('TEST')
 		{
-			parallel
-			{
-				stage("TEST - Running Test") 
-				{
+			
 					steps 
 					{	
 						script 
@@ -45,9 +42,8 @@ pipeline {
 							
 						}
 
+					
 					}
-				}
-			}
 		}
 
 		stage('PUBLISH to DockerHub') 
